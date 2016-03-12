@@ -1,0 +1,35 @@
+git源码管理相关
+
+windows下可安装git bash模拟linux -->下载地址 http://git-for-windows.github.io/
+
+1.安装openssh-server实现远程登录
+2.检查ssh服务是否正常 ssh -v 不正常 先安装ssh
+  windows下可安装git bash模拟linux -->下载地址 http://git-for-windows.github.io/
+3.创建ssh key (-t rsa表示通过rsa加密)
+  ssh-keygen -t rsa
+  	>>/path/to/.ssh/xxx  提示保存的位置、保存文件名
+	>>密码
+	>>密码确认
+	chmod 700 /path/to/.ssh/
+	chmod 600 /path/to/.ssh/xxx
+
+4.公钥上传:
+  命令:cat /path/to/.ssh/xxx.pub|ssh root@远程服务器ip 'cat - >> ~/.ssh/authorized_keys'
+
+  如果用github托管，可复制xxx.pub内容到https://github.com/settings/ssh相关地方.
+
+5.可开始克隆项目.
+  >> git init
+  >> git add files
+  >> git commit -m 'staments'
+  >> git remote add origin git@github.com:glj1226/study.git
+  >> git push origin master
+  如果最后一步出现无权限问题,可运行以下命令再push
+  	ssh-agent bash
+	//加载私钥
+	ssh-add ~/.ssh/id_rsa
+
+
+
+you can also visit:
+https://github.com/fooklook/laravel-upgrade/blob/master/toolnote/ssh%E5%85%AC%E9%92%A5%E8%87%AA%E5%8A%A8%E7%99%BB%E5%BD%95%E6%9C%8D%E5%8A%A1%E5%99%A8.md
