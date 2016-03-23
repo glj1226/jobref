@@ -1,0 +1,8 @@
+ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.38.tar.gz
+http://www.ijg.org/files/jpegsrc.v9.tar.gz%C2%A0%C2%A0%C2%A0%C2%A0
+
+install openssl libssl-dev libgd-dev
+
+nginx
+./configure --prefix=/apps/nginx --user=www --group=www  --with-http_stub_status_module --with-http_ssl_module --with-pcre=/home/venyisa/packages/pcre-8.38 --with-http_realip_module --with-http_image_filter_module
+
