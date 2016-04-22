@@ -24,7 +24,7 @@ step5.
     edit /etc/passwd and change line like
     git:x:1002:1002:,,,:/home/git:/bin/bash
     to
-    git:x:1002:1002:,,,:/home/git:/user/bin/git-shell
+    git:x:1002:1002:,,,:/home/git:/usr/bin/git-shell
 
 finally, we could use git commands and enjoy it.
    git clone git@server:/source/venyisa.git
