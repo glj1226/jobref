@@ -6,3 +6,91 @@ install openssl libssl-dev libgd-dev
 nginx
 ./configure --prefix=/apps/nginx --user=www --group=www  --with-http_stub_status_module --with-http_ssl_module --with-pcre=/home/venyisa/packages/pcre-8.38 --with-http_realip_module --with-http_image_filter_module
 
+//php依赖包
+mkdir -p /apps/libs/
+wget http://www.ijg.org/files/jpegsrc.v9.tar.gz    
+tar zxvf jpegsrc.v9.tar.gz
+cd jpeg-9/
+./configure --prefix=/apps/libs --enable-shared --enable-static --prefix=/apps/libs
+make
+make install
+cd ../
+
+wget http://prdownloads.sourceforge.net/libpng/libpng-1.6.2.tar.gz
+tar zxvf libpng-1.6.2.tar.gz
+cd libpng-1.6.2/
+./configure --prefix=/apps/libs
+make
+make install
+cd ../
+
+wget http://download.savannah.gnu.org/releases/freetype/freetype-2.4.12.tar.gz
+tar zxvf freetype-2.4.12.tar.gz
+cd freetype-2.4.12/
+./configure --prefix=/apps/libs
+make
+make install
+cd ../
+
+
+wget "http://downloads.sourceforge.net/mhash/mhash-0.9.9.9.tar.gz?big_mirror=0"
+wget "http://downloads.sourceforge.net/mcrypt/libmcrypt-2.5.8.tar.gz?big_mirror=0"
+wget "http://downloads.sourceforge.net/mcrypt/mcrypt-2.6.8.tar.gz?big_mirror=0"
+
+
+tar zxvf libmcrypt-2.5.8.tar.gz
+cd libmcrypt-2.5.8/
+./configure --prefix=/apps/libs
+make
+make install
+cd libltdl/
+./configure --prefix=/apps/libs --enable-ltdl-install
+make
+make install
+cd ../../
+
+
+tar zxvf mhash-0.9.9.9.tar.gz
+cd mhash-0.9.9.9/
+./configure --prefix=/apps/libs
+make
+make install
+cd ../
+
+
+vi /etc/ld.so.conf
+
+添加：
+/apps/libs/lib
+
+然后：
+ldconfig
+
+
+tar zxvf mcrypt-2.6.8.tar.gz
+cd mcrypt-2.6.8/
+export LDFLAGS="-L/apps/libs/lib -L/usr/lib"
+export CFLAGS="-I/apps/libs/include -I/usr/include"
+touch malloc.h
+./configure --prefix=/apps/libs --with-libmcrypt-prefix=/apps/libs
+make
+make install
+cd ../
+
+
+　　4、编译安装PHP 5.5
+wget http://www.php.net/get/php-5.5.1.tar.gz/from/tw2.php.net/mirror
+tar zxvf php-5.5.1.tar.gz
+cd php-5.5.1/
+export LIBS="-lm -ltermcap -lresolv"
+export DYLD_LIBRARY_PATH="/apps/mysql/lib/:/lib/:/usr/lib/:/usr/local/lib:/lib64/:/usr/lib64/:/usr/local/lib64"
+export LD_LIBRARY_PATH="/apps/mysql/lib/:/lib/:/usr/lib/:/usr/local/lib:/lib64/:/usr/lib64/:/usr/local/lib64"
+./configure --prefix=/apps/php --with-config-file-path=/apps/php/etc --with-mysql=/apps/mysql --with-mysqli=/apps/mysql/bin/mysql_config --with-iconv-dir --with-freetype-dir=/apps/libs --with-jpeg-dir=/apps/libs --with-png-dir=/apps/libs --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt=/apps/libs --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --enable-opcache --with-pdo-mysql --enable-maintainer-zts
+make
+make install
+cp php.ini-development /apps/php/etc/php.ini
+cd ../
+
+
+ln -s /apps/mysql/lib/libmysqlclient.18.dylib /usr/lib/libmysqlclient.18.dylib
+mv /apps/php/etc/php-fpm.conf.default /apps/php/etc/php-fpm.conf

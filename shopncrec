@@ -1,2 +1,40 @@
 notes:
 member system
+
+operate process 流程:
+	require /根目录/.'shopnc.php'
+
+
+增加基本modules步骤
+
+增加test
+	1.rootpath/test/
+	2.vim rootpath/test/index.php
+
+	  define('APP_ID','test');
+	  define('BASE_PATH',str_replace('\\','/',dirname(__FILE__)));
+	  require __DIR__ . '/../shopwwi.php';
+		
+	  define('APP_SITE_URL',SHOP_SITE_URL);
+	  define('TPL_NAME',TPL_SHOP_NAME);
+	  define('SHOP_RESOURCE_SITE_URL',SHOP_SITE_URL.DS.'resource');
+	  define('SHOP_TEMPLATES_URL',SHOP_SITE_URL.'/templates/'.TPL_NAME);
+	  define('BASE_TPL_PATH',BASE_PATH.'/templates/'.TPL_NAME);
+	  if (!@include(BASE_PATH.'/control/control.php')) exit('control.php isn\'t exists!');
+	  Base::run();
+
+        3.mkdir rootpath/test/control
+	  touch rootpath/test/control/control.php
+	4.创建control文件test.php
+	  vim rootpath/test/control/test.php
+	   class testControl
+	   {
+
+	       public function indexOp()
+	       {
+	           echo "test";
+		   }
+	
+	   }
+	5.可以访问对应控制器了..
+	      website/test/index.php?act=test&op=index

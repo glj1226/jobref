@@ -1,0 +1,30 @@
+Git Server Setup
+
+step1.
+
+  install git
+    sudo apt-get install git
+
+step2.
+  add user for git
+    sudo adduser git
+
+step3.
+  collect authrized keys for ssh.
+    get assess keys from file id_rsa.pub, then put into file /home/git/.ssh/authorized_keys, one record takes a line.
+
+step4.
+  init git repository:
+    sudo git init --bare /source/venyisa.git
+  then:
+    sudo chown -R git:git /source/venyisa.git
+
+step5.
+  make no login priviledge for user git:
+    edit /etc/passwd and change line like
+    git:x:1002:1002:,,,:/home/git:/bin/bash
+    to
+    git:x:1002:1002:,,,:/home/git:/user/bin/git-shell
+
+finally, we could use git commands and enjoy it.
+   git clone git@server:/source/venyisa.git
