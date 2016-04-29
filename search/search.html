@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=utf-8"/>
+<link href="search.css"/>
+<script src="./search/jquery.min.js"></script>
+<script src="./search/search.js"></script>
+<style>
+	.head_box{
+		width:500px;
+		height:600px;
+		margin:50px auto;
+		border:1px solid #abcdef;
+
+	}
+</style>
+</head>
+<body>
+
+<div class="head">
+        <div class="head_box">
+	      
+	<div class="head_ceater">
+			      
+	<form action="http://test.com/search" id="searchForm" method="get" enctype="multipart/form-data">
+	
+		<input name="key" type="text" autocomplete="off" class="search_text helpe_link" placeholder="请输入元器件型号" id="search-kw" value="max"/>
+		<input type="submit" value="Find" class="search-submit" id="search-submit"/>
+
+		<div style="display: none;" id="search_url" url=""></div>
+
+		<div class="show_error search-input-error">请输入完整或部分制造商部件编号，最少3个字母或数字</div>
+		<i class="close"></i>
+		<ul style="display:none" class="search_list" id="search-ul">
+		</ul>
+	</form>
+
+	</div>
+
+											
+	</div>																			    
+</div>
+
+</body>
+</html>
